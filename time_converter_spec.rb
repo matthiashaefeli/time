@@ -67,5 +67,21 @@ RSpec.describe 'add_minutes' do
     it 'adds 200 minutes' do
       expect(addMinutes("9:13 AM", 200)).to eq('12:33 PM')
     end
+
+    it 'adds 1 day and 1 minutes' do
+      expect(addMinutes("11:59 AM", 1441)).to eq('12:00 PM')
+    end
+
+    it 'changes 00 to 12' do
+      expect(addMinutes("11:59 PM", 1441)).to eq('12:00 AM')
+    end
+
+    it 'add 1 day - 1 minutes' do
+      expect(addMinutes("12:00 PM", 1439)).to eq('11:59 AM')
+    end
+
+    it 'big number' do
+      expect(addMinutes("12:00 PM", 2880000)).to eq('12:00 PM')
+    end
   end
 end
