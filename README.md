@@ -4,8 +4,8 @@ Without using any built-in date or time functions, write a function or method th
 
 Example:
 
-addMinutes("9:13 AM", 20)
-=> "9:33 AM"
+addMinutes("9:13 AM", 200)
+=> "12:33 PM"
 
 
 ## Requirements
