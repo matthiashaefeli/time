@@ -28,7 +28,7 @@ class TimeConverter
 
     days, @hours = @hours.divmod(24) if @hours > 24
 
-    if @am_or_pm == 'PM' && @hours > 12 || @am_or_pm == 'AM' && @hours >= 13
+    if (@am_or_pm == 'PM' && @hours > 12) || (@am_or_pm == 'AM' && @hours >= 13)
       @hours -= 12
     end
 
@@ -43,22 +43,25 @@ class TimeConverter
       rest
     end
 
+    @hours = @hours == 0 ? 12 : @hours
+
     @timeString = "#{@hours}:#{rest} #{@am_or_pm}"
   end
 
   def addMinutes(minutes)
-    # hours and minutes left to change form AM to PM or reverse
-    hours_left = @hours < 12 ? 12 - @hours : @hours
-    minutes_left = 60 - @minutes
-
     # set total minutes
     @totalMinutes += minutes
 
-    # we need this hours to check how much hours we add
-    hours = minutes / 60
+    # hours and minutes left to check if we change AM or PM
+    hours_left = @hours < 12 ? 12 - @hours : @hours
+    minutes_left = 60 - @minutes
+
+
+    # we need this hours and minutes to check if we change AM or PM
+    hours, minutes = minutes.divmod(60)
 
     # change AM to PM or reverse
-    if (hours <= 1 && hours_left <= 1 && minutes >= minutes_left) || (hours == hours_left && minutes >= minutes_left)
+    if hours == hours_left || (hours_left == 1 && minutes >= minutes_left) || (hours > 12 && (hours/12).odd?)
       @am_or_pm = @am_or_pm == 'AM' ? 'PM' : 'AM'
     end
 
