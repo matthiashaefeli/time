@@ -29,6 +29,6 @@ cd time -> irb
 ```
 2.7.0 :001 > load 'add_minutes.rb'
  => true
-2.7.0 :002 > addMinutes('10:10 PM', 60)
+2.7.0 :002 > add_minutes('10:10 PM', 60)
  => "11:10 PM"
 ```
